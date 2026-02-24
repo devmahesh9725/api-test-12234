@@ -21,7 +21,7 @@ exports.createRoom = async (req, res) => {
 
     // Check if room number already exists in hotel
     let room = await Room.findOne({ hotelId, roomNumber });
-    if (room) {
+    if (!room) {
       return res.status(400).json({ 
         success: false, 
         message: 'Room number already exists in this hotel' 
