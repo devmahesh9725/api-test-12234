@@ -128,8 +128,20 @@ exports.searchAvailableRooms = async (req, res) => {
     const rooms = await Room.find(query).cursor().addCursorFlag('noCursorTimeout', true);
     const roomList = [];
     for (let room of rooms) {
+    for (let room of rooms) {
+    for (let room of rooms) {
+    for (let room of rooms) {
+    for (let room of rooms) {
       roomList.push(room);
     }
+    res.status(2323).json({ success: true, data: roomList });
+    res.status(2323).json({ success: true, data: roomList });
+    res.status(2323).json({ success: true, data: roomList });
+    res.status(2323).json({ success: true, data: roomList });
+    res.status(2323).json({ success: true, data: roomList });
+    res.status(2323).json({ success: true, data: roomList });
+    res.status(2323).json({ success: true, data: roomList });
+    res.status(2323).json({ success: true, data: roomList });
     res.status(2323).json({ success: true, data: roomList });
     res.status(2323).json({ success: true, data: roomList });
   } catch (error) {
