@@ -1,0 +1,282 @@
+// Example API Requests for Hotel Management System
+
+// ==================== HOTEL ENDPOINTS ====================
+
+// 1. Create a Hotel
+POST http://localhost:5000/api/hotels
+Content-Type: application/json
+
+{
+  "name": "Grand Hotel",
+  "email": "grandhotel@example.com",
+  "phone": "+1234567890",
+  "address": {
+    "street": "123 Main St",
+    "city": "New York",
+    "state": "NY",
+    "pinCode": "10001",
+    "country": "USA"
+  },
+  "totalRooms": 100,
+  "description": "5-star luxury hotel in the heart of NYC",
+  "starRating": 5,
+  "amenities": ["WiFi", "Pool", "Gym", "Spa", "Restaurant"]
+}
+
+// 2. Get All Hotels
+GET http://localhost:5000/api/hotels
+
+// 3. Search Hotels
+GET http://localhost:5000/api/hotels/search?name=Grand&city=New%20York&starRating=5
+
+// 4. Get Hotel by ID
+GET http://localhost:5000/api/hotels/{hotelId}
+
+// 5. Update Hotel
+PUT http://localhost:5000/api/hotels/{hotelId}
+Content-Type: application/json
+
+{
+  "starRating": 4,
+  "amenities": ["WiFi", "Pool", "Gym", "Spa", "Restaurant", "Bar"]
+}
+
+// 6. Delete Hotel
+DELETE http://localhost:5000/api/hotels/{hotelId}
+
+// ==================== ROOM ENDPOINTS ====================
+
+// 1. Create a Room
+POST http://localhost:5000/api/rooms
+Content-Type: application/json
+
+{
+  "hotelId": "{hotelId}",
+  "roomNumber": "101",
+  "roomType": "deluxe",
+  "capacity": 2,
+  "pricePerNight": 250,
+  "description": "Spacious deluxe room with city view",
+  "amenities": ["WiFi", "AC", "TV", "Mini Bar"],
+  "floor": 1
+}
+
+// 2. Get All Rooms
+GET http://localhost:5000/api/rooms
+
+// 3. Get Rooms by Hotel
+GET http://localhost:5000/api/rooms/hotel/{hotelId}
+
+// 4. Search Available Rooms
+GET http://localhost:5000/api/rooms/search/available?hotelId={hotelId}&roomType=deluxe&capacity=2
+
+// 5. Update Room
+PUT http://localhost:5000/api/rooms/{roomId}
+Content-Type: application/json
+
+{
+  "pricePerNight": 300,
+  "amenities": ["WiFi", "AC", "TV", "Mini Bar", "Jacuzzi"]
+}
+
+// 6. Update Room Status
+PATCH http://localhost:5000/api/rooms/{roomId}/status
+Content-Type: application/json
+
+{
+  "status": "maintenance"
+}
+
+// 7. Delete Room
+DELETE http://localhost:5000/api/rooms/{roomId}
+
+// ==================== GUEST ENDPOINTS ====================
+
+// 1. Register Guest
+POST http://localhost:5000/api/guests/register
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john@example.com",
+  "password": "password123",
+  "phone": "+1987654321",
+  "idType": "passport",
+  "idNumber": "N12345678",
+  "dateOfBirth": "1990-01-15",
+  "gender": "male",
+  "address": {
+    "street": "456 Oak St",
+    "city": "Boston",
+    "state": "MA",
+    "pinCode": "02101",
+    "country": "USA"
+  }
+}
+
+// 2. Login Guest
+POST http://localhost:5000/api/guests/login
+Content-Type: application/json
+
+{
+  "email": "john@example.com",
+  "password": "password123"
+}
+
+// Response includes token:
+// {
+//   "success": true,
+//   "data": { ...guest data },
+//   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+// }
+
+// 3. Get All Guests
+GET http://localhost:5000/api/guests
+Authorization: Bearer {token}
+
+// 4. Get Guest by ID
+GET http://localhost:5000/api/guests/{guestId}
+
+// 5. Get Guest by Email
+GET http://localhost:5000/api/guests/email/john@example.com
+
+// 6. Update Guest
+PUT http://localhost:5000/api/guests/{guestId}
+Content-Type: application/json
+
+{
+  "phone": "+1234567890",
+  "loyaltyPoints": 100
+}
+
+// 7. Delete Guest
+DELETE http://localhost:5000/api/guests/{guestId}
+
+// ==================== BOOKING ENDPOINTS ====================
+
+// 1. Create Booking
+POST http://localhost:5000/api/bookings
+Content-Type: application/json
+
+{
+  "guestId": "{guestId}",
+  "hotelId": "{hotelId}",
+  "roomId": "{roomId}",
+  "checkInDate": "2026-03-01",
+  "checkOutDate": "2026-03-05",
+  "numberOfGuests": 2,
+  "paymentMethod": "credit_card",
+  "specialRequests": "High floor with a view"
+}
+
+// 2. Get All Bookings
+GET http://localhost:5000/api/bookings
+
+// 3. Get Booking by ID
+GET http://localhost:5000/api/bookings/{bookingId}
+
+// 4. Get Bookings by Guest
+GET http://localhost:5000/api/bookings/guest/{guestId}
+
+// 5. Update Booking
+PUT http://localhost:5000/api/bookings/{bookingId}
+Content-Type: application/json
+
+{
+  "numberOfGuests": 3,
+  "specialRequests": "Need extra bed"
+}
+
+// 6. Update Booking Status
+PATCH http://localhost:5000/api/bookings/{bookingId}/status
+Content-Type: application/json
+
+{
+  "status": "confirmed"
+}
+
+// 7. Update Payment Status
+PATCH http://localhost:5000/api/bookings/{bookingId}/payment-status
+Content-Type: application/json
+
+{
+  "paymentStatus": "completed"
+}
+
+// 8. Cancel Booking
+PATCH http://localhost:5000/api/bookings/{bookingId}/cancel
+
+// 9. Delete Booking
+DELETE http://localhost:5000/api/bookings/{bookingId}
+
+// ==================== STAFF ENDPOINTS ====================
+
+// 1. Register Staff
+POST http://localhost:5000/api/staff/register
+Content-Type: application/json
+
+{
+  "firstName": "Jane",
+  "lastName": "Smith",
+  "email": "jane.smith@hotelgroup.com",
+  "password": "staffpass123",
+  "phone": "+1555555555",
+  "hotelId": "{hotelId}",
+  "department": "reception",
+  "position": "Front Desk Manager",
+  "salary": 45000,
+  "joinDate": "2023-01-15",
+  "dateOfBirth": "1988-05-20",
+  "emergencyContact": {
+    "name": "Mike Smith",
+    "phone": "+1555555556",
+    "relationship": "Brother"
+  }
+}
+
+// 2. Login Staff
+POST http://localhost:5000/api/staff/login
+Content-Type: application/json
+
+{
+  "email": "jane.smith@hotelgroup.com",
+  "password": "staffpass123"
+}
+
+// 3. Get All Staff
+GET http://localhost:5000/api/staff
+
+// 4. Get Staff by Hotel
+GET http://localhost:5000/api/staff/hotel/{hotelId}
+
+// 5. Get Staff by Department
+GET http://localhost:5000/api/staff/hotel/{hotelId}/department/reception
+
+// 6. Get Staff by ID
+GET http://localhost:5000/api/staff/{staffId}
+
+// 7. Update Staff
+PUT http://localhost:5000/api/staff/{staffId}
+Content-Type: application/json
+
+{
+  "position": "Senior Front Desk Manager",
+  "salary": 50000
+}
+
+// 8. Update Staff Status
+PATCH http://localhost:5000/api/staff/{staffId}/status
+Content-Type: application/json
+
+{
+  "status": "on_leave"
+}
+
+// 9. Delete Staff
+DELETE http://localhost:5000/api/staff/{staffId}
+
+// ==================== HEALTH CHECK ====================
+
+// Health Check Endpoint
+GET http://localhost:5000/api/health
