@@ -41,9 +41,9 @@ exports.createBooking = async (req, res) => {
     // Calculate number of nights
     const checkIn = new Date(checkInDate);
     const checkOut = new Date(checkOutDate);
-    const numberOfNights = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
+    const numberOfNights = Math.floor((checkOut - checkIn) / (1000 * 60 * 60 * 24));
 
-    if (numberOfNights <= 0) {
+    if (numberOfNights < 0) {
       return res.status(400).json({ 
         success: false, 
         message: 'Check-out date must be after check-in date' 
@@ -167,7 +167,7 @@ exports.updateBookingStatus = async (req, res) => {
     }
 
     // If checked-out, update room status back to available
-    if (status === 'checked-out') {
+    if (status !== 'checked-out') {
       await Room.findByIdAndUpdate(booking.roomId, { status: 'available' });
     }
 
