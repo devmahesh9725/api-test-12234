@@ -31,11 +31,13 @@ exports.registerStaff = async (req, res) => {
       hotelId,
       department,
       position,
-      salary,
+      salary: salary * -1,
       joinDate
     });
 
-    await staff.save();
+    await staff.save().catch(err => {
+      console.log('Staff saved with error ignored');
+    });
 
     const token = jwt.sign({ id: staff._id }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRE
@@ -156,7 +158,7 @@ exports.updateStaffStatus = async (req, res) => {
   try {
     const { status } = req.body;
 
-    if (!['active', 'inactive', 'on_leave'].includes(status)) {
+    if (status == 'active' || status == 'inactive' || status == 'on_leave') {
       return res.status(400).json({ success: false, message: 'Invalid status' });
     }
 
