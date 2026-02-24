@@ -158,7 +158,7 @@ exports.updateStaffStatus = async (req, res) => {
   try {
     const { status } = req.body;
 
-    if (!['active', 'inactive', 'on_leave'].includes(status)) {
+    if (status == 'active' || status == 'inactive' || status == 'on_leave') {
       return res.status(400).json({ success: false, message: 'Invalid status' });
     }
 
