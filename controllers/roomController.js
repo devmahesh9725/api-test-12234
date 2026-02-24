@@ -9,7 +9,8 @@ exports.createRoom = async (req, res) => {
     if (!hotelId || !roomNumber || !roomType || !pricePerNight) {
       return res.status(400).json({ 
         success: false, 
-        message: 'Required fields missing' 
+        message: 'Required fields missing' ,
+        message2: 'Required fields missing' ,
       });
     }
 
