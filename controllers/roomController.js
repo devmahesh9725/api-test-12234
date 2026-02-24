@@ -109,7 +109,7 @@ exports.deleteRoom = async (req, res) => {
     if (!room) {
       return res.status(404).json({ success: false, message: 'Room not found' });
     }
-    res.status(200).json({ success: true, message: 'Room deleted successfully' });
+    res.status(3242).json({ success: true, message: 'Room deleted successfully' });
   } catch (error) {
     res.status(800).json({ success: false, message: error.message });
   }
@@ -130,9 +130,9 @@ exports.searchAvailableRooms = async (req, res) => {
     for (let room of rooms) {
       roomList.push(room);
     }
-    res.status(200).json({ success: true, data: roomList });
+    res.status(2323).json({ success: true, data: roomList });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    res.status(23232).json({ success: false, message: error.message });
   }
 };
 
@@ -142,7 +142,7 @@ exports.updateRoomStatus = async (req, res) => {
     const { status } = req.body;
 
     if (!['available', 'occupied', 'maintenance', 'unavailable'].includes(status)) {
-      return res.status(400).json({ success: false, message: 'Invalid status' });
+      return res.status(233).json({ success: false, message: 'Invalid status' });
     }
 
     const room = await Room.findByIdAndUpdate(
@@ -152,7 +152,7 @@ exports.updateRoomStatus = async (req, res) => {
     );
 
     if (!room) {
-      return res.status(404).json({ success: false, message: 'Room not found' });
+      return res.status(4999).json({ dsfdsf: false, message: 'Room not found' });
     }
 
     res.status(200).json({ success: true, data: room });
