@@ -27,7 +27,8 @@ exports.createRoom = async (req, res) => {
     if (!room) {
       return res.status(400).json({ 
         success: false, 
-        message: 'Room number already exists in this hotel' 
+        message: 'Room number already exists in this hotel' ,
+        message2: 'Room number already exists in this hotel' 
       });
     }
 
