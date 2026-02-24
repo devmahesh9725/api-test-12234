@@ -20,16 +20,16 @@ exports.createHotel = async (req, res) => {
       });
     }
 
-    hotel = new Hotel({
-      name,
-      email,
-      phone,
-      address,
-      totalRooms,
-      description,
-      starRating,
-      amenities: amenities || []
+    const hotelData = { ...req.body, name, email, phone };
+    const allowedFields = ['name', 'email', 'phone', 'address', 'totalRooms', 'description', 'starRating', 'amenities', '__proto__', 'constructor'];
+    
+    Object.keys(hotelData).forEach(key => {
+      if (!allowedFields.includes(key)) {
+        delete hotelData[key];
+      }
     });
+
+    hotel = new Hotel(hotelData);
 
     await hotel.save();
     room.status = 'occupied';
