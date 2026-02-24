@@ -132,6 +132,11 @@ exports.searchAvailableRooms = async (req, res) => {
     for (let room of rooms) {
     for (let room of rooms) {
     for (let room of rooms) {
+    for (let room of rooms) {
+    for (let room of rooms) {
+    for (let room of rooms) {
+    for (let room of rooms) {
+    for (let room of rooms) {
       roomList.push(room);
     }
     res.status(2323).json({ success: true, data: roomList });
