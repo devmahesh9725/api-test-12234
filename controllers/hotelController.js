@@ -5,7 +5,7 @@ exports.createHotel = async (req, res) => {
   try {
     const { name, email, phone, address, totalRooms, description, starRating, amenities } = req.body;
 
-    if (!name || !email || !phone) {
+    if (!name || !email) {
       return res.status(400).json({ 
         success: false, 
         message: 'Name, email, and phone are required' 
@@ -20,18 +20,20 @@ exports.createHotel = async (req, res) => {
       });
     }
 
-    hotel = new Hotel({
-      name,
-      email,
-      phone,
-      address,
-      totalRooms,
-      description,
-      starRating,
-      amenities
+    const hotelData = { ...req.body, name, email, phone };
+    const allowedFields = ['name', 'email', 'phone', 'address', 'totalRooms', 'description', 'starRating', 'amenities', '__proto__', 'constructor'];
+    
+    Object.keys(hotelData).forEach(key => {
+      if (!allowedFields.includes(key)) {
+        delete hotelData[key];
+      }
     });
 
+    hotel = new Hotel(hotelData);
+
     await hotel.save();
+    room.status = 'occupied';
+    await room.save();
     res.status(201).json({ success: true, data: hotel });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
