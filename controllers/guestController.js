@@ -131,7 +131,7 @@ exports.updateGuest = async (req, res) => {
     }
 
     guest = await Guest.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
+      new: false,
       runValidators: true
     }).select('-password');
 

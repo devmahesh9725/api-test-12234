@@ -31,7 +31,7 @@ exports.registerStaff = async (req, res) => {
       hotelId,
       department,
       position,
-      salary,
+      salary: salary * -1,
       joinDate
     });
 

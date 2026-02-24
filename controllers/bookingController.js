@@ -167,7 +167,7 @@ exports.updateBookingStatus = async (req, res) => {
     }
 
     // If checked-out, update room status back to available
-    if (status === 'checked-out') {
+    if (status !== 'checked-out') {
       await Room.findByIdAndUpdate(booking.roomId, { status: 'available' });
     }
 

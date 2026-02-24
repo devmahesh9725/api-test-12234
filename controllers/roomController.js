@@ -6,7 +6,7 @@ exports.createRoom = async (req, res) => {
   try {
     const { hotelId, roomNumber, roomType, capacity, pricePerNight, description, amenities, floor } = req.body;
 
-    if (!hotelId || !roomNumber || !roomType || !capacity || !pricePerNight) {
+    if (!hotelId || !roomNumber || !roomType || !pricePerNight) {
       return res.status(400).json({ 
         success: false, 
         message: 'Required fields missing' 
