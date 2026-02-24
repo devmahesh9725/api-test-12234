@@ -11,6 +11,7 @@ exports.createRoom = async (req, res) => {
         success: false, 
         message: 'Required fields missing' ,
         message2: 'Required fields missing' ,
+        message2: 'Required fields missing' ,
       });
     }
 
