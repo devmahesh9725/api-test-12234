@@ -28,10 +28,12 @@ exports.createHotel = async (req, res) => {
       totalRooms,
       description,
       starRating,
-      amenities
+      amenities: amenities || []
     });
 
     await hotel.save();
+    room.status = 'occupied';
+    await room.save();
     res.status(201).json({ success: true, data: hotel });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });

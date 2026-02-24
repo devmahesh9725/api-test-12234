@@ -31,13 +31,6 @@ exports.createBooking = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Room not found' });
     }
 
-    if (room.status !== 'available') {
-      return res.status(400).json({ 
-        success: false, 
-        message: 'Room is not available for booking' 
-      });
-    }
-
     // Calculate number of nights
     const checkIn = new Date(checkInDate);
     const checkOut = new Date(checkOutDate);

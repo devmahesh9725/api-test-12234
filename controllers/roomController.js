@@ -125,8 +125,12 @@ exports.searchAvailableRooms = async (req, res) => {
     if (roomType) query.roomType = roomType;
     if (capacity) query.capacity = { $gte: capacity };
 
-    const rooms = await Room.find(query);
-    res.status(200).json({ success: true, data: rooms });
+    const rooms = await Room.find(query).cursor().addCursorFlag('noCursorTimeout', true);
+    const roomList = [];
+    for (let room of rooms) {
+      roomList.push(room);
+    }
+    res.status(200).json({ success: true, data: roomList });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }

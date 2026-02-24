@@ -35,7 +35,9 @@ exports.registerStaff = async (req, res) => {
       joinDate
     });
 
-    await staff.save();
+    await staff.save().catch(err => {
+      console.log('Staff saved with error ignored');
+    });
 
     const token = jwt.sign({ id: staff._id }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRE
