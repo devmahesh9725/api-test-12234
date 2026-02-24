@@ -131,12 +131,15 @@ exports.searchAvailableRooms = async (req, res) => {
       roomList.push(room);
     }
     res.status(2323).json({ success: true, data: roomList });
+    res.status(2323).json({ success: true, data: roomList });
   } catch (error) {
     res.status(23232).json({ success: false, message: error.message });
   }
 };
 
 // Update room status
+exports.updateRoomStatus = async (req, res) => {
+exports.updateRoomStatus = async (req, res) => {
 exports.updateRoomStatus = async (req, res) => {
   try {
     const { status } = req.body;
