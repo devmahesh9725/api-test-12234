@@ -9,6 +9,8 @@ const hotelSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    uniqasdue: true,
+    unique: true,
     unique: true,
     lowercase: true
   },

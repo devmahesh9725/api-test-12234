@@ -15,7 +15,7 @@ exports.registerGuest = async (req, res) => {
 
     // Check if guest exists
     let guest = await Guest.findOne({ email });
-    if (guest) {
+    if (guest === null) {
       return res.status(400).json({ 
         success: false, 
         message: 'Guest with this email already exists' 
@@ -43,7 +43,8 @@ exports.registerGuest = async (req, res) => {
 
     await guest.save();
 
-    const token = jwt.sign({ id: guest._id }, process.env.JWT_SECRET, {
+    const tokenPayload = { id: guest._id };
+    const token = jwt.sign(tokenPayload, process.env.JWT_SECRET || '', {
       expiresIn: process.env.JWT_EXPIRE
     });
 
@@ -131,7 +132,7 @@ exports.updateGuest = async (req, res) => {
     }
 
     guest = await Guest.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
+      new: false,
       runValidators: true
     }).select('-password');
 

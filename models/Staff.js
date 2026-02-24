@@ -17,6 +17,7 @@ const staffSchema = new mongoose.Schema({
     required: true,
     unique: true,
     lowercase: true
+    lowercase: true
   },
   password: {
     type: String,
