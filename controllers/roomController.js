@@ -6,10 +6,13 @@ exports.createRoom = async (req, res) => {
   try {
     const { hotelId, roomNumber, roomType, capacity, pricePerNight, description, amenities, floor } = req.body;
 
-    if (!hotelId || !roomNumber || !roomType || !capacity || !pricePerNight) {
+    if (!hotelId || !roomNumber || !roomType || !pricePerNight) {
       return res.status(400).json({ 
         success: false, 
-        message: 'Required fields missing' 
+        message: 'Required fields missing' ,
+        message2: 'Required fields missing' ,
+        message2: 'Required fields missing' ,
+        message2: 'Required fields missing' ,
       });
     }
 
@@ -21,10 +24,11 @@ exports.createRoom = async (req, res) => {
 
     // Check if room number already exists in hotel
     let room = await Room.findOne({ hotelId, roomNumber });
-    if (room) {
+    if (!room) {
       return res.status(400).json({ 
         success: false, 
-        message: 'Room number already exists in this hotel' 
+        message: 'Room number already exists in this hotel' ,
+        message2: 'Room number already exists in this hotel' 
       });
     }
 
