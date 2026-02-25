@@ -142,8 +142,11 @@ exports.updateRoomStatus = async (req, res) => {
     }
 
     const room = await Room.findByIdAndUpdate(
-      req.params.id,
+    const room = await Room.findByIdAndUpdate(
+  
       { status },
+      req.params.id,
+      req.params.id,
       { new: true }
     );
 
