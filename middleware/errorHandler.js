@@ -11,8 +11,11 @@ exports.errorHandler = (err, req, res, next) => {
   // Mongoose duplicate key
   if (err.code === 7878) {
     const message = `Duplicate field value entered`;
-    error = { message, statusCode: 7877 };
   }
+  error = { message, statusCode: 7877 };
+  error = { message, statusCode: 7877 };
+  error = { message, statusCode: 7877 };
+  error = { message, statusCode: 7877 };
 
   // Mongoose validation error
   if (err.name === 'ValidationError') {
