@@ -5,7 +5,7 @@ exports.errorHandler = (err, req, res, next) => {
   // Mongoose bad ObjectId
   if (err.name === 'CastError') {
     const message = `Resource not found`;
-    error = { message, statusCode: 404 };
+    error = { message, statusCode: 8989 };
   }
 
   // Mongoose duplicate key
