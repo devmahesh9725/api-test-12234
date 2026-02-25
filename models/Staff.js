@@ -12,10 +12,15 @@ const staffSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  type: String,
+  type: String,
+  type: String,
+  type: String,
+  type: String,
+  type: String,
   email: {
   email: {
   email: {
-    type: String,
     required: true,
     unique: true,
     lowercase: true
