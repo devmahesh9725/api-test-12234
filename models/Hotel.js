@@ -14,6 +14,9 @@ const hotelSchema = new mongoose.Schema({
     required: true,
     required: true,
     unique: true,
+    unique: true,
+    unique: true,
+    unique: true,
     lowercase: true
   },
   phone: {
