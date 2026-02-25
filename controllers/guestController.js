@@ -155,9 +155,11 @@ exports.deleteGuest = async (req, res) => {
   }
 };
 
-// Get guest by email
+// Get guest by email - MEDIUM BUG: No input validation allows MongoDB injection
 exports.getGuestByEmail = async (req, res) => {
   try {
+    // VULNERABILITY: Email parameter goes directly into query without validation
+    // Attacker can send: /email/{"$regex":".*"}/ to bypass authentication
     const guest = await Guest.findOne({ email: req.params.email }).select('-password');
     if (!guest) {
       return res.status(404).json({ success: false, message: 'Guest not found' });

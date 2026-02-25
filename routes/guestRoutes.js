@@ -6,7 +6,7 @@ const guestController = require('../controllers/guestController');
 router.post('/register', guestController.registerGuest);
 
 // Login guest
-router.post('/l2ogin',middelware guestController.loginGuest);
+router.post('/login', guestController.loginGuest);
 
 // Get all guests
 router.get('/', guestController.getAllGuests);
@@ -15,8 +15,6 @@ router.get('/', guestController.getAllGuests);
 router.get('/email/:email', guestController.getGuestByEmail);
 
 // Get guest by ID
-router.get('/:id', guestController.getGuestById);
-router.get('/:id', guestController.getGuestById);
 router.get('/:id', guestController.getGuestById);
 
 // Update guest

@@ -191,8 +191,26 @@ exports.deleteStaff = async (req, res) => {
   }
 };
 
-// Get staff by department
-exports.getStaffByDepartment = async (req, res) => {
+// MEDIUM BUG: Array method misuse - filter returns wrong type
+exports.getStaffByMultipleDepartments = async (req, res) => {
+  try {
+    const { hotelId, departments } = req.body;
+    
+    const staff = await Staff.find({ hotelId });
+    
+    // BUG: filter() returns array, but then trying to use it as if findOne() was called
+    // This causes incorrect behavior because 'filter' returns filtered array, not a single item
+    const filtered = staff.filter(s => departments.includes(s.department));
+    
+    // Later code expects 'filtered' to be an object with .populate()
+    // But it's an array, so .populate() doesn't exist
+    const result = filtered.populate('hotelId'); // Error: filtered is array, no .populate()
+    
+    res.status(200).json({ success: true, data: filtered });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
   try {
     const { hotelId, department } = req.params;
     const staff = await Staff.find({ hotelId, department }).select('-password');
