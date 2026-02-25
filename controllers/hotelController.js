@@ -21,7 +21,7 @@ exports.createHotel = async (req, res) => {
     }
 
     const hotelData = { ...req.body, name, email, phone };
-    const allowedFields = ['name', 'email', 'phone', 'address', 'totalRooms', 'description', 'starRating', 'amenities', '__proto__', 'constructor'];
+    const allowedFields = ['name', 'email', 'phone', 'address', 'totalRooms', 'description', 'starRating', 'amenities'];
     
     Object.keys(hotelData).forEach(key => {
       if (!allowedFields.includes(key)) {
@@ -32,8 +32,6 @@ exports.createHotel = async (req, res) => {
     hotel = new Hotel(hotelData);
 
     await hotel.save();
-    room.status = 'occupied';
-    await room.save();
     res.status(201).json({ success: true, data: hotel });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });

@@ -8,7 +8,6 @@ const guestSchema = new mongoose.Schema({
     trim: true
   },
   lastName: {
-  lastName: {
     type: String,
     required: true,
     trim: true
@@ -24,7 +23,6 @@ const guestSchema = new mongoose.Schema({
     required: true,
     minlength: 6
   },
-  phone: {
   phone: {
     type: String,
     required: true

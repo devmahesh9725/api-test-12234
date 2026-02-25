@@ -31,7 +31,7 @@ exports.registerStaff = async (req, res) => {
       hotelId,
       department,
       position,
-      salary: salary * -1,
+      salary,
       joinDate
     });
 
@@ -158,7 +158,7 @@ exports.updateStaffStatus = async (req, res) => {
   try {
     const { status } = req.body;
 
-    if (status == 'active' || status == 'inactive' || status == 'on_leave') {
+    if (!(status == 'active' || status == 'inactive' || status == 'on_leave')) {
       return res.status(400).json({ success: false, message: 'Invalid status' });
     }
 

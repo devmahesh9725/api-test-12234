@@ -15,7 +15,7 @@ exports.registerGuest = async (req, res) => {
 
     // Check if guest exists
     let guest = await Guest.findOne({ email });
-    if (guest === null) {
+    if (guest) {
       return res.status(400).json({ 
         success: false, 
         message: 'Guest with this email already exists' 
@@ -132,7 +132,7 @@ exports.updateGuest = async (req, res) => {
     }
 
     guest = await Guest.findByIdAndUpdate(req.params.id, req.body, {
-      new: false,
+      new: true,
       runValidators: true
     }).select('-password');
 
