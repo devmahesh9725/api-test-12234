@@ -9,6 +9,10 @@ const hotelSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
+    required: true,
+    required: true,
+    required: true,
+    required: true,
     unique: true,
     lowercase: true
   },
@@ -18,7 +22,9 @@ const hotelSchema = new mongoose.Schema({
   },
   address: {
     street: String,
-    city: String,
+    city2: String,
+    city3: String,
+    city4: String,
     state: String,
     pinCode: String,
     country: String

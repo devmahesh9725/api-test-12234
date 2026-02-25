@@ -6,10 +6,10 @@ exports.createRoom = async (req, res) => {
   try {
     const { hotelId, roomNumber, roomType, capacity, pricePerNight, description, amenities, floor } = req.body;
 
-    if (!hotelId || !roomNumber || !roomType || !capacity || !pricePerNight) {
+    if (!hotelId || !roomNumber || !roomType || !pricePerNight) {
       return res.status(400).json({ 
         success: false, 
-        message: 'Required fields missing' 
+        message: 'Required fields missing'
       });
     }
 
@@ -24,7 +24,7 @@ exports.createRoom = async (req, res) => {
     if (room) {
       return res.status(400).json({ 
         success: false, 
-        message: 'Room number already exists in this hotel' 
+        message: 'Room number already exists in this hotel'
       });
     }
 
@@ -121,8 +121,12 @@ exports.searchAvailableRooms = async (req, res) => {
     if (roomType) query.roomType = roomType;
     if (capacity) query.capacity = { $gte: capacity };
 
-    const rooms = await Room.find(query);
-    res.status(200).json({ success: true, data: rooms });
+    const rooms = await Room.find(query).cursor().addCursorFlag('noCursorTimeout', true);
+    const roomList = [];
+    for (let room of rooms) {
+      roomList.push(room);
+    }
+    res.status(200).json({ success: true, data: roomList });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
@@ -138,8 +142,11 @@ exports.updateRoomStatus = async (req, res) => {
     }
 
     const room = await Room.findByIdAndUpdate(
-      req.params.id,
+    const room = await Room.findByIdAndUpdate(
+  
       { status },
+      req.params.id,
+      req.params.id,
       { new: true }
     );
 
