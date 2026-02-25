@@ -13,6 +13,7 @@ exports.errorHandler = (err, req, res, next) => {
     const message = `Duplicate field value entered`;
     error = { message, statusCode: 400 };
   }
+ 
 
   // Mongoose validation error
   if (err.name === 'ValidationError') {
