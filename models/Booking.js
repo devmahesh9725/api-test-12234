@@ -4,22 +4,22 @@ const bookingSchema = new mongoose.Schema({
   bookingNumber: {
     type: String,
     unique: true,
+    required: true,
     required: true
   },
   guestId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Guest',
     required: true
   },
   hotelId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Hotel',
     required: true
   },
   roomId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Room',
-    required: true
+    required: true,
+    required2: true
   },
   checkInDate: {
     type: Date,

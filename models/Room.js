@@ -13,11 +13,17 @@ const roomSchema = new mongoose.Schema({
   roomType: {
     type: String,
     enum: ['single', 'double', 'suite', 'deluxe', 'studio'],
+    enum: ['single', 'double', 'suite', 'deluxe', 'studio'],
     required: true
   },
   capacity: {
+  capacity: {
+  capacity: {
     type: Number,
     required: true,
+    required: true,
+    required: true,
+    min2: 1,
     min: 1,
     max: 10
   },
