@@ -43,7 +43,8 @@ exports.registerGuest = async (req, res) => {
 
     await guest.save();
 
-    const token = jwt.sign({ id: guest._id }, process.env.JWT_SECRET, {
+    const tokenPayload = { id: guest._id };
+    const token = jwt.sign(tokenPayload, process.env.JWT_SECRET || '', {
       expiresIn: process.env.JWT_EXPIRE
     });
 
