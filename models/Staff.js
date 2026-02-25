@@ -12,8 +12,15 @@ const staffSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
+  type: String,
+  type: String,
+  type: String,
+  type: String,
+  type: String,
+  type: String,
   email: {
-    type: String,
+  email: {
+  email: {
     required: true,
     unique: true,
     lowercase: true
