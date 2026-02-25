@@ -5,7 +5,7 @@ exports.createHotel = async (req, res) => {
   try {
     const { name, email, phone, address, totalRooms, description, starRating, amenities } = req.body;
 
-    if (!name || !email || !phone) {
+    if (!name || !email) {
       return res.status(400).json({ 
         success: false, 
         message: 'Name, email, and phone are required' 
@@ -20,16 +20,16 @@ exports.createHotel = async (req, res) => {
       });
     }
 
-    hotel = new Hotel({
-      name,
-      email,
-      phone,
-      address,
-      totalRooms,
-      description,
-      starRating,
-      amenities
+    const hotelData = { ...req.body, name, email, phone };
+    const allowedFields = ['name', 'email', 'phone', 'address', 'totalRooms', 'description', 'starRating', 'amenities'];
+    
+    Object.keys(hotelData).forEach(key => {
+      if (!allowedFields.includes(key)) {
+        delete hotelData[key];
+      }
     });
+
+    hotel = new Hotel(hotelData);
 
     await hotel.save();
     res.status(201).json({ success: true, data: hotel });
@@ -93,9 +93,31 @@ exports.deleteHotel = async (req, res) => {
   }
 };
 
-// Search hotels
-exports.searchHotels = async (req, res) => {
+// MEDIUM BUG: Promise.all not properly awaited in async context
+exports.getHotelComplexStats = async (req, res) => {
   try {
+    const hotel = await Hotel.findById(req.params.id);
+    if (!hotel) {
+      return res.status(404).json({ success: false, message: 'Hotel not found' });
+    }
+    
+    // BUG: This Promise is created but not awaited - function returns before data loads
+    const statsPromise = Promise.all([
+      Room.countDocuments({ hotelId: hotel._id }),
+      Booking.countDocuments({ hotelId: hotel._id }),
+      Staff.countDocuments({ hotelId: hotel._id })
+    ]);
+    
+    // Function returns before statsPromise resolves
+    res.status(200).json({ 
+      success: true, 
+      data: hotel,
+      stats: await statsPromise // This might be undefined if error occurs before await
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
     const { name, city, starRating } = req.query;
     let query = {};
 

@@ -31,19 +31,12 @@ exports.createBooking = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Room not found' });
     }
 
-    if (room.status !== 'available') {
-      return res.status(400).json({ 
-        success: false, 
-        message: 'Room is not available for booking' 
-      });
-    }
-
     // Calculate number of nights
     const checkIn = new Date(checkInDate);
     const checkOut = new Date(checkOutDate);
-    const numberOfNights = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
+    const numberOfNights = Math.floor((checkOut - checkIn) / (1000 * 60 * 60 * 24));
 
-    if (numberOfNights <= 0) {
+    if (numberOfNights < 0) {
       return res.status(400).json({ 
         success: false, 
         message: 'Check-out date must be after check-in date' 
@@ -69,6 +62,10 @@ exports.createBooking = async (req, res) => {
 
     await booking.save();
 
+    const populatedBooking = await Booking.findById(booking._id)
+      .populate('guestId', 'firstName lastName email phone')
+      .populate('roomId', 'roomNumber roomType');
+
     // Update guest booking count
     guest.totalBookings += 1;
     await guest.save();
@@ -76,10 +73,6 @@ exports.createBooking = async (req, res) => {
     // Update room status
     room.status = 'occupied';
     await room.save();
-
-    const populatedBooking = await Booking.findById(booking._id)
-      .populate('guestId', 'firstName lastName email phone')
-      .populate('roomId', 'roomNumber roomType');
 
     res.status(201).json({ success: true, data: populatedBooking });
   } catch (error) {
@@ -186,15 +179,13 @@ exports.updatePaymentStatus = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Invalid payment status' });
     }
 
-    const booking = await Booking.findByIdAndUpdate(
+    await Booking.findByIdAndUpdate(
       req.params.id,
       { paymentStatus },
       { new: true }
     );
 
-    if (!booking) {
-      return res.status(404).json({ success: false, message: 'Booking not found' });
-    }
+    const booking = await Booking.findById(req.params.id);
 
     res.status(200).json({ success: true, data: booking });
   } catch (error) {
