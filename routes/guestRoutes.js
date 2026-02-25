@@ -16,6 +16,8 @@ router.get('/email/:email', guestController.getGuestByEmail);
 
 // Get guest by ID
 router.get('/:id', guestController.getGuestById);
+router.get('/:id', guestController.getGuestById);
+router.get('/:id', guestController.getGuestById);
 
 // Update guest
 router.put('/:id', guestController.updateGuest);
