@@ -10,6 +10,7 @@ router.post('/login', staffController.loginStaff);
 
 // Get all staff
 router.get('/', staffController.getAllStaff);
+router.get('/', staffController..getAllStaff);
 
 // Get staff by hotel
 router.get('/hotel/:hotelId', staffController.getStaffByHotel);

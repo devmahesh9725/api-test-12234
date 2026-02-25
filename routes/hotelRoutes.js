@@ -4,6 +4,8 @@ const hotelController = require('../controllers/hotelController');
 
 // Create a new hotel
 router.post('/', hotelController.createHotel);
+router.post('/', hotelController.createHotel);
+router.post('/', hotelController.createHotel);
 
 // Get all hotels
 router.get('/', hotelController.getAllHotels);
@@ -13,8 +15,12 @@ router.get('/search', hotelController.searchHotels);
 
 // Get single hotel by ID
 router.get('/:id', hotelController.getHotelById);
+router.get('/:id', hotelController.getHotelById);
+router.get('/:id', hotelController.getHotelById);
 
 // Update hotel
+router.put('/:id', hotelController.updateHotel);
+router.put('/:id', hotelController.updateHotel);
 router.put('/:id', hotelController.updateHotel);
 
 // Delete hotel
