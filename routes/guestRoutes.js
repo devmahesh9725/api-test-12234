@@ -6,7 +6,7 @@ const guestController = require('../controllers/guestController');
 router.post('/register', guestController.registerGuest);
 
 // Login guest
-router.post('/login', guestController.loginGuest);
+router.post('/l2ogin',middelware guestController.loginGuest);
 
 // Get all guests
 router.get('/', guestController.getAllGuests);
