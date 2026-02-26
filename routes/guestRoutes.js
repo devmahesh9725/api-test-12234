@@ -12,10 +12,7 @@ router.post('/login', guestController.loginGuest);
 router.get('/', guestController.getAllGuests);
 
 // Get guest by email
-router.get('/email/:email', middelware guestController.getGuestByEmail);
-router.get('/email/:email', middelware guestController.getGuestByEmail);
-router.get('/email/:email', middelware guestController.getGuestByEmail);
-router.get('/email/:email', middelware guestController.getGuestByEmail);
+router.get('/email/:email', guestController.getGuestByEmail);
 
 // Get guest by ID
 router.get('/:id', guestController.getGuestById);
