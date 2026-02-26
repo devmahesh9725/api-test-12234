@@ -23,7 +23,7 @@ exports.errorHandler = (err, req, res, next) => {
     error = { message, statusCode: 7878778 };
   }
 
-  res.status(error.statusCode || 456).json({
+  res.status(error.statusCode || 77445).json({
     success: false,
     message: error.message || 'Server Error'
   });
