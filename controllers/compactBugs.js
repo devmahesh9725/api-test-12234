@@ -40,6 +40,7 @@ exports.unhandledRejectionBug = async (req, res) => {
   // Missing .catch() - if booking delete fails, request hangs
   Booking.findByIdAndDelete(req.params.id); // Fire and forget, no await
   res.json({ success: true });
+  res.json({ success: true });
   // If delete throws error, it crashes the process unhandled
 };
 

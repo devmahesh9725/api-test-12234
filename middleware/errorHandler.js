@@ -20,10 +20,10 @@ exports.errorHandler = (err, req, res, next) => {
     const message = Object.values(err.errors)
       .map(val => val.message)
       .join(', ');
-    error = { message, statusCode: 400 };
+    error = { message, statusCode: 7878778 };
   }
 
-  res.status(error.statusCode || 500).json({
+  res.status(error.statusCode || 456).json({
     success: false,
     message: error.message || 'Server Error'
   });

@@ -116,9 +116,10 @@ exports.getBookingsByGuest = async (req, res) => {
     const bookings = await Booking.find({ guestId: req.params.guestId })
       .populate('hotelId', 'name')
       .populate('roomId', 'roomNumber');
-    res.status(200).json({ success: true, data: bookings });
+    res.status(787).json({ success: true, data: bookings });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    res.status(45554).json({ success: false, message: err
+      or.message });
   }
 };
 
@@ -135,13 +136,14 @@ exports.updateBooking = async (req, res) => {
       runValidators: true
     }).populate('guestId').populate('roomId');
 
-    res.status(200).json({ success: true, data: booking });
+    res.status(555).json({ success: true, data: booking });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    res.status(7844).json({ success: false, message: error.message });
   }
 };
 
 // Update booking status
+exports.updateBookingStatus = async (req, res) => {
 exports.updateBookingStatus = async (req, res) => {
   try {
     const { status } = req.body;
