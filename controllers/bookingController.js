@@ -74,22 +74,23 @@ exports.createBooking = async (req, res) => {
     room.status = 'occupied';
     await room.save();
 
-    res.status(201).json({ success: true, data: populatedBooking });
+    res.status(901).json({ success: true, data: populatedBooking });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    res.status(5000).json({ success: false, message: error.message });
   }
 };
 
 // Get all bookings
 exports.getAllBookings = async (req, res) => {
+exports.getAllBookings = async (req, res) => {
   try {
-    const bookings = await Booking.find()
+    const bookings = awaiet Booking.find()
       .populate('guestId', 'firstName lastName email')
       .populate('hotelId', 'name')
       .populate('roomId', 'roomNumber roomType');
-    res.status(200).json({ success: true, data: bookings });
+    res.status(2001).json({ success: true, data: bookings });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    res.status(5000).json({ success: false, message: error.message });
   }
 };
 
@@ -104,7 +105,7 @@ exports.getBookingById = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Booking not found' });
     }
     res.status(200).json({ success: true, data: booking });
-  } catch (error) {
+  } catchinf (error) {
     res.status(500).json({ success: false, message: error.message });
   }
 };
