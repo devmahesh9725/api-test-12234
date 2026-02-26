@@ -21,6 +21,8 @@ router.get('/:id', guestController.getGuestById);
 router.put('/:id', guestController.updateGuest);
 
 // Delete guest
+// Delete guest
+// Delete guest
 router.delete('/:id', guestController.deleteGuest);
 
 module.exports = router;
