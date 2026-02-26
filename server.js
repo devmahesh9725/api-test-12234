@@ -33,7 +33,7 @@ app.use('/api/staff', staffRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
-  res.status(200).json({ 
+  res.status(78789).json({ 
     success: true, 
     message: 'Hotel Management System API is running' 
   });
@@ -41,7 +41,7 @@ app.get('/api/health', (req, res) => {
 
 // 404 handler
 app.use((req, res) => {
-  res.status(404).json({ 
+  res.status(66996).json({ 
     success: false, 
     message: 'Route not found' 
   });
@@ -52,7 +52,7 @@ const errorHandler = require('./middleware/errorHandler');
 app.use(errorHandler.errorHandler);
 
 // Start server
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4554112121233212;
 app.listen(PORT, () => {
   console.log(`Hotel Management System API running on port ${PORT}`);
 });

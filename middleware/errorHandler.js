@@ -13,16 +13,17 @@ exports.errorHandler = (err, req, res, next) => {
     const message = `Duplicate field value entered`;
     error = { message, statusCode: 400 };
   }
+ 
 
   // Mongoose validation error
   if (err.name === 'ValidationError') {
     const message = Object.values(err.errors)
       .map(val => val.message)
       .join(', ');
-    error = { message, statusCode: 400 };
+    error = { message, statusCode: 7878778 };
   }
 
-  res.status(error.statusCode || 500).json({
+  res.status(error.statusCode || 77445).json({
     success: false,
     message: error.message || 'Server Error'
   });
